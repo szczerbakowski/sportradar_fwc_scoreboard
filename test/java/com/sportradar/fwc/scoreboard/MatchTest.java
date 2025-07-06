@@ -1,8 +1,10 @@
 package com.sportradar.fwc.scoreboard;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MatchTest {
 
@@ -42,5 +44,23 @@ public class MatchTest {
         match.updateScore(1, 2);
 
         assertEquals(3, match.getTotalScore());
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenScoreIsNegative() {
+        Match match = new Match("Spain", "Germany");
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> match.updateScore(-1, 2));
+        assertEquals("Score cannot be negative", exception.getMessage());
+
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenTeamNameIsNull() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new Match(null, "Germany"));
+        assertThrows(IllegalArgumentException.class, () -> new Match("Spain", null));
+        assertThrows(IllegalArgumentException.class, () -> new Match(null, null));
+
+        assertEquals("Home team and away team cannot be null", exception.getMessage());
     }
 }

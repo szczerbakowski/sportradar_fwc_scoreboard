@@ -8,7 +8,10 @@ public class Match {
     private int homeTeamScore;
     private int awayTeamScore;
 
-    public Match(String homeTeam, String awayTeam) {
+    public Match(String homeTeam, String awayTeam) throws IllegalArgumentException {
+        if (homeTeam == null || awayTeam == null) {
+            throw new IllegalArgumentException("Home team and away team cannot be null");
+        }
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.homeTeamScore = 0;
@@ -23,7 +26,10 @@ public class Match {
         return awayTeam;
     }
 
-    public void updateScore(int homeTeamScore, int awayTeamScore) {
+    public void updateScore(int homeTeamScore, int awayTeamScore) throws IllegalArgumentException {
+        if (homeTeamScore < 0 || awayTeamScore < 0) {
+            throw new IllegalArgumentException("Score cannot be negative");
+        }
         this.homeTeamScore = homeTeamScore;
         this.awayTeamScore = awayTeamScore;
     }
