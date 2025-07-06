@@ -8,8 +8,8 @@ public class MatchTest {
 
     @Test
     public void shouldCreateMatchWithHomeAndAwayTeam() {
-        String homeTeam = "homeTeam";
-        String awayTeam = "awayTeam";
+        String homeTeam = "Spain";
+        String awayTeam = "Germany";
 
         Match match = new Match(homeTeam, awayTeam);
 
