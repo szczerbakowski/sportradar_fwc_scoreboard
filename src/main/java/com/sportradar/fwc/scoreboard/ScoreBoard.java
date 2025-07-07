@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class ScoreBoard {
 
-    List<Match> matches = new ArrayList<>();
+    private final List<Match> matches = new ArrayList<>();
 
     public Match startMatch(String homeTeam, String awayTeam) {
         Match match = new Match(homeTeam, awayTeam);
