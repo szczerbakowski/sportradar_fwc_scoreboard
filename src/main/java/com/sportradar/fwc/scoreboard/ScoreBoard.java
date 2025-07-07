@@ -37,8 +37,8 @@ public class ScoreBoard {
     public List<Match> getSummary() {
         return matches.stream()
                 .sorted(
-                    Comparator.comparing(Match::getTotalScore).reversed()
-                              .thenComparing(Match::getStartTime)
+                    Comparator.comparing(Match::getTotalScore, Comparator.reverseOrder())
+                            .thenComparing(Match::getStartTime, Comparator.reverseOrder())
                 ).collect(Collectors.toList());
     }
 

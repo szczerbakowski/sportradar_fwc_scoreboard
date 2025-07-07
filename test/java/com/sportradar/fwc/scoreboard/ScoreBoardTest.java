@@ -43,11 +43,13 @@ class ScoreBoardTest {
     }
 
     @Test
-    public void shouldReturnMatchesOrderedByTotalScoreAndStartTime() {
+    public void shouldReturnMatchesOrderedByTotalScoreAndStartTime() throws InterruptedException {
         ScoreBoard scoreBoard = new ScoreBoard();
 
         Match match1 = scoreBoard.startMatch("Spain", "Germany");
+        Thread.sleep(200);
         Match match2 = scoreBoard.startMatch("France", "Italy");
+        Thread.sleep(200);
         Match match3 = scoreBoard.startMatch("Brazil", "Argentina");
 
         match1.updateScore(1, 2);
@@ -55,8 +57,8 @@ class ScoreBoardTest {
         match3.updateScore(3, 2);
 
         assertEquals(match3, scoreBoard.getSummary().get(0));
-        assertEquals(match1, scoreBoard.getSummary().get(1));
-        assertEquals(match2, scoreBoard.getSummary().get(2));
+        assertEquals(match2, scoreBoard.getSummary().get(1));
+        assertEquals(match1, scoreBoard.getSummary().get(2));
     }
 
     @Test
@@ -76,5 +78,41 @@ class ScoreBoardTest {
         assertEquals(1, scoreBoard.getSummary().size());
     }
 
+    @Test
+    public void shouldReturnEmptyListWhenThereAreNoMatches() {
+        ScoreBoard scoreBoard = new ScoreBoard();
+
+        assertEquals(0, scoreBoard.getSummary().size());
+    }
+
+    @Test
+    public void shouldReturnMatchesExactlyAsInExample() throws InterruptedException {
+        ScoreBoard scoreBoard = new ScoreBoard();
+
+        Match mexicoCanada = scoreBoard.startMatch("Mexico", "Canada");
+        Thread.sleep(200);
+        Match spainBrazil = scoreBoard.startMatch("Spain", "Brazil");
+        Thread.sleep(200);
+        Match germanyFrance = scoreBoard.startMatch("Germany", "France");
+        Thread.sleep(200);
+        Match uruguayItaly = scoreBoard.startMatch("Uruguay", "Italy");
+        Thread.sleep(200);
+        Match argentinaAustralia = scoreBoard.startMatch("Argentina", "Australia");
+
+        mexicoCanada.updateScore(0, 5);
+        spainBrazil.updateScore(10, 2);
+        germanyFrance.updateScore(2, 2);
+        uruguayItaly.updateScore(6, 6);
+        argentinaAustralia.updateScore(3, 1);
+
+        assertEquals(5, scoreBoard.getSummary().size());
+
+        assertEquals(uruguayItaly, scoreBoard.getSummary().get(0));
+        assertEquals(spainBrazil, scoreBoard.getSummary().get(1));
+        assertEquals(mexicoCanada, scoreBoard.getSummary().get(2));
+        assertEquals(argentinaAustralia, scoreBoard.getSummary().get(3));
+        assertEquals(germanyFrance, scoreBoard.getSummary().get(4));
+
+    }
 
 }
