@@ -19,8 +19,14 @@ public class ScoreBoard {
         return matches;
     }
 
-    public void finishMatch(Match match) {
-        matches.remove(match);
+    /**
+     * Removes the specified match from the scoreboard.
+     *
+     * @param match The match to be removed.
+     * @return true if the scoreboard contains the match and the match was successfully removed, false otherwise.
+     */
+    public boolean finishMatch(Match match) {
+        return matches.remove(match);
     }
 
     /**

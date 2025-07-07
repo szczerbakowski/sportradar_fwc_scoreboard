@@ -59,5 +59,22 @@ class ScoreBoardTest {
         assertEquals(match2, scoreBoard.getSummary().get(2));
     }
 
+    @Test
+    public void shouldNotBreakWhenTryingToRemoveAlreadyFinishedMatch() {
+        ScoreBoard scoreBoard = new ScoreBoard();
+
+        Match match = scoreBoard.startMatch("Spain", "Germany");
+        Match match2 = scoreBoard.startMatch("France", "Italy");
+        Match match3 = new Match("Poland", "Belgium");
+
+        assertTrue(scoreBoard.finishMatch(match));
+        assertFalse(scoreBoard.finishMatch(match));
+        assertFalse(scoreBoard.finishMatch(null));
+        assertFalse(scoreBoard.finishMatch(match3));
+
+        assertTrue(scoreBoard.getSummary().contains(match2));
+        assertEquals(1, scoreBoard.getSummary().size());
+    }
+
 
 }
