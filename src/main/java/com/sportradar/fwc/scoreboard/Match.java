@@ -1,6 +1,10 @@
 package com.sportradar.fwc.scoreboard;
 
+import java.util.Date;
+
 public class Match {
+
+    private final Date startTime;
 
     private final String homeTeam;
     private final String awayTeam;
@@ -16,6 +20,7 @@ public class Match {
         this.awayTeam = awayTeam;
         this.homeTeamScore = 0;
         this.awayTeamScore = 0;
+        this.startTime = new Date();
     }
 
     public String getHomeTeam() {
@@ -44,5 +49,9 @@ public class Match {
 
     public int getTotalScore() {
         return homeTeamScore + awayTeamScore;
+    }
+
+    public Date getStartTime() {
+        return startTime;
     }
 }
