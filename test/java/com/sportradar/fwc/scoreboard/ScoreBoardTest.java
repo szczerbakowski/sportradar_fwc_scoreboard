@@ -2,6 +2,8 @@ package com.sportradar.fwc.scoreboard;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScoreBoardTest {
@@ -105,13 +107,11 @@ class ScoreBoardTest {
         uruguayItaly.updateScore(6, 6);
         argentinaAustralia.updateScore(3, 1);
 
-        assertEquals(5, scoreBoard.getSummary().size());
+        List<Match> summary = scoreBoard.getSummary();
+        List<Match> expectedSummary = List.of(uruguayItaly, spainBrazil, mexicoCanada, argentinaAustralia, germanyFrance);
 
-        assertEquals(uruguayItaly, scoreBoard.getSummary().get(0));
-        assertEquals(spainBrazil, scoreBoard.getSummary().get(1));
-        assertEquals(mexicoCanada, scoreBoard.getSummary().get(2));
-        assertEquals(argentinaAustralia, scoreBoard.getSummary().get(3));
-        assertEquals(germanyFrance, scoreBoard.getSummary().get(4));
+        assertEquals(5, summary.size());
+        assertEquals(expectedSummary, summary);
 
     }
 
