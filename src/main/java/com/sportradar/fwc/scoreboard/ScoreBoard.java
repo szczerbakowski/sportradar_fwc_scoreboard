@@ -3,14 +3,29 @@ package com.sportradar.fwc.scoreboard;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ScoreBoard {
 
     private final List<Match> matches = new ArrayList<>();
 
+    /**
+     * Starts a new match, adding it to the scoreboard.
+     *
+     * @param homeTeam the home team
+     * @param awayTeam the away team
+     * @return the newly-created match
+     */
     public Match startMatch(String homeTeam, String awayTeam) {
         Match match = new Match(homeTeam, awayTeam);
+        Optional<Match> existingMatch = matches.stream()
+                .filter(m -> m.getHomeTeam().equals(homeTeam) || m.getAwayTeam().equals(homeTeam))
+                .findAny();
+        if (existingMatch.isPresent()) {
+            throw new IllegalArgumentException("There is already a match between " + homeTeam + " and " + awayTeam);
+        }
+
         matches.add(match);
         return match;
     }
@@ -30,7 +45,7 @@ public class ScoreBoard {
     }
 
     /**
-     * Return a list of matches sorted by total score in descending order, then start time ascending.
+     * Return a list of matches sorted by total score in descending order, then most recently started.
      *
      * @return A list of matches.
      */

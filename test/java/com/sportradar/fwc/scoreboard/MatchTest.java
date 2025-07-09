@@ -55,11 +55,19 @@ public class MatchTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenTeamNameIsNull() {
+    public void shouldThrowExceptionWhenTeamNameIsNullOrEmpty() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> new Match(null, "Germany"));
         assertThrows(IllegalArgumentException.class, () -> new Match("Spain", null));
         assertThrows(IllegalArgumentException.class, () -> new Match(null, null));
+        assertThrows(IllegalArgumentException.class, () -> new Match("Spain", ""));
+        assertThrows(IllegalArgumentException.class, () -> new Match("  ", "Germany"));
 
-        assertEquals("Home team and away team cannot be null", exception.getMessage());
+        assertEquals("Home team and away team cannot be empty", exception.getMessage());
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenTeamNamesAreIdentical() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new Match("Spain", "Spain"));
+        assertEquals("Home team and away team cannot be the same", exception.getMessage());
     }
 }

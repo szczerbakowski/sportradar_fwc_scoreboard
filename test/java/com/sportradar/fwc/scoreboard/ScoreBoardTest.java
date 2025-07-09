@@ -115,4 +115,13 @@ class ScoreBoardTest {
 
     }
 
+    @Test
+    public void shouldNotAllowSameMatchToBeStartedTwice() {
+        ScoreBoard scoreBoard = new ScoreBoard();
+
+        scoreBoard.startMatch("Spain", "Germany");
+        Exception e = assertThrows(IllegalArgumentException.class, () -> scoreBoard.startMatch("Spain", "Germany"));
+        assertEquals("There is already a match between Spain and Germany", e.getMessage());
+    }
+
 }
